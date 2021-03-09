@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Route, Switch } from 'react-router-dom';
+
 import './App.css';
+import CountryDetail from './components/CountryDetail';
+import CoutriesList from './components/CoutriesList';
+import { GlobalProvider } from './components/GlobalState';
+import Header from './components/Header';
+import InputFields from './components/InputFields';
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <GlobalProvider>
+        <Header />
+        <Switch>
+          <Route path="/" exact>
+            <InputFields />
+            <CoutriesList />
+          </Route>
+          <Route path="/:name">
+              <CountryDetail />
+          </Route>
+        </Switch>
+      </GlobalProvider>
   );
 }
 
