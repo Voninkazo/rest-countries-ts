@@ -17,7 +17,7 @@ const App = () => {
             <InputFields />
             <CoutriesList />
           </Route>
-          <Route path="/:name">
+          <Route path="/:name/">
               <CountryDetail />
           </Route>
         </Switch>

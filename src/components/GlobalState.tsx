@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react"
+import { createContext, useReducer, useEffect, ButtonHTMLAttributes } from "react"
 
 export const initialValues: State = {
     countries: [],
@@ -53,11 +53,22 @@ type Action = {
     value: Props[];
 }
 
+// type Filters = {
+//     value: string,
+//     region: string,
+//     onChange: (param: {name: string, value:string}) => void
+// }
+
+
 function reducer(state: State, action: Action) {
     switch (action.type) {
         case "FETCH_DATA":
             console.log(action.value)
         return { ...state, countries: action.value};
+
+        // case "FILTER_SEARCH": 
+        // return {...state, countries: action.value}
+
         default:
             return state;
     }
@@ -80,6 +91,11 @@ export const GlobalProvider: React.FC = ({children}) => {
     useEffect(() => {
       fetchData();
     }, [])
+
+    function filterByName(e: HTMLInputElement) {
+    //     const filteredArr = state.countries.filter((country: any) => country.name === e.target.value)
+    //    dispatch({type: "FILTER_SEARCH", value: filteredArr})
+    }
 
     return (
         <GlobalContext.Provider value={{countries: state.countries}}>
