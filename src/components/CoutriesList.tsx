@@ -33,6 +33,8 @@ const CountryList = styled.div`
     h2 {
         color: hsl(200, 15%, 8%);
         font-weight: 800;
+        font-size: 20px;
+        line-height: 22px;
     }
 
     p {
