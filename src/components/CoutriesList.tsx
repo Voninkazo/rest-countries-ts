@@ -55,12 +55,14 @@ const CountryList = styled.div`
 
 function CoutriesList() {
 
-    const {countries} = useContext(GlobalContext);
+    const {countries, search} = useContext(GlobalContext);
+    const filteredCountry = countries.filter((country: any) => country.name.toLowerCase().includes(search.toLocaleLowerCase()))
+
 
     return (
         <CountryContainer>
             {
-                countries.map((country: any, index: number) => {
+                filteredCountry.map((country: any, index: number) => {
                     return (
                         <Link to={`/${country.name}`} key={index}>
                         <CountryList>

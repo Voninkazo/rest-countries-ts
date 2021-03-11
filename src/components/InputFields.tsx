@@ -53,12 +53,17 @@ const FormContainer = styled.form`
 
 function InputFields() {
 
-    const {countries} = useContext(GlobalContext);
-    console.log(countries)
+    const {countries, search, onchange} = useContext(GlobalContext);
+    console.log(countries);
 
     return (
         <FormContainer>
-            <input type="text" placeholder="Search for a country..." />
+            <input
+             type="text" 
+             placeholder="Search for a country..." 
+                value={search}
+                onChange={onchange}
+             />
             <select name="region" id="region">
                 <option value="select">Select</option>
                 <option value="Africa">Africa</option>

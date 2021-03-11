@@ -9,6 +9,7 @@ const DetailContainer = styled.div`
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 40px;
+    pading-bottom: 200px;
 
     .previous_link {
         padding: 10px 20px;
@@ -33,6 +34,7 @@ const DetailContainer = styled.div`
         display: flex;
         flex-direction: column;
         gap: 40px;
+        
     }
 
     .languages_container{
@@ -60,6 +62,26 @@ const DetailContainer = styled.div`
         margin:auto;
         padding-left: 0;
         padding-right: 0;
+        .wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 100px;
+        padding-bottom: 300px;
+       
+        }
+
+        .img_container {
+            max-width: 566px;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-top: 100px;
+        }
+        .borders_container  {
+            flex-wrap: nowrap;
+        }
     }
 `;
 
@@ -71,6 +93,7 @@ function CountryDetail() {
 
    const countryWithDetail = countries.find((country: any) => country.name === name)
     console.log(countryWithDetail);
+    const arr = countryWithDetail.borders.length;
 
     return (
         <DetailContainer>
@@ -82,6 +105,7 @@ function CountryDetail() {
                     <img src={countryWithDetail.flag} alt="flag"/>
                </div>
                <div className="text_detail__wrapper">
+                    <div className="flex">
                     <div className="text_detail__container">
                         <h3>{countryWithDetail.name}</h3>
                         <p>Native Name: {countryWithDetail.nativeName}</p>
@@ -93,21 +117,21 @@ function CountryDetail() {
                    <div  className="text_detail__container">
                         <p>Top Level Domain: {countryWithDetail.topLevelDomain[0]}</p>
                             <p>Currencies: {countryWithDetail.currencies.map((currency: any) => currency.name)}</p>
-                            <div className="languages_container">
-                               <p> Languages:</p>
-                        {
-                            countryWithDetail.languages.map((lang: any, index: number) => {
-                                return (
-                                    <p key={index}>{lang.name}</p>
-                                )
-                            })
-                        }
+                               <p className="languages_container"> Languages:
+                                {
+                                    countryWithDetail.languages.map((lang: any, index: number) => {
+                                        return (
+                                            <span key={index}>{lang.name}</span>
+                                        )
+                                    })
+                                }
+                            </p>
                     </div>
-            </div>
-            <div>
+                    </div>
+                <div>
                    <p>Border Countries: </p>
                     <ul className="borders_container">
-                   { countryWithDetail.borders.map((border: any, index: number) => {
+                   { arr >= 0 ? countryWithDetail.borders.map((border: {}, index: number) => {
                        return (
                            
                                 <li key={index}>
@@ -121,6 +145,8 @@ function CountryDetail() {
                                 </li>
                        )
                    })
+                   :
+                   <span>No borders found</span>
                  }
                  </ul>
                </div>

@@ -2,12 +2,16 @@ import { createContext, useReducer, useEffect, ButtonHTMLAttributes } from "reac
 
 export const initialValues: State = {
     countries: [],
+    onchange: () => {},
+    search: '',
 }
 
 const GlobalContext = createContext(initialValues);
 
 type State = {
     countries: any;
+    onchange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    search: string;
 }
 
 export type Props = {
@@ -48,10 +52,10 @@ export type Props = {
     }
 }
 
-type Action = {
-    type: "FETCH_DATA",
+type Action = |{
+    type: "FETCH_DATA"
     value: Props[];
-}
+}| {type: "FILTER_BY_SEARCH", value: string}
 
 // type Filters = {
 //     value: string,
@@ -66,8 +70,8 @@ function reducer(state: State, action: Action) {
             console.log(action.value)
         return { ...state, countries: action.value};
 
-        // case "FILTER_SEARCH": 
-        // return {...state, countries: action.value}
+        case "FILTER_BY_SEARCH": 
+        return {...state, search: action.value}
 
         default:
             return state;
@@ -98,7 +102,7 @@ export const GlobalProvider: React.FC = ({children}) => {
     }
 
     return (
-        <GlobalContext.Provider value={{countries: state.countries}}>
+        <GlobalContext.Provider value={{countries: state.countries, search: state.search, onchange : (e) => dispatch({type: "FILTER_BY_SEARCH", value: e.target.value})}}>
             {children}
         </GlobalContext.Provider>
     )
